@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { FiveStart } from "./FiveStart";
+import { Link } from "react-router-dom";
 
 export const MovieCard = ({ el, handleTrash }) => {
   return (
@@ -13,14 +14,11 @@ export const MovieCard = ({ el, handleTrash }) => {
             {" "}
             <FiveStart rate={el.rate} />
           </Card.Text>
-
-          <Button
-            variant="primary"
-            style={{ width: "100%" }}
-            onClick={() => window.open(el.srcVideo, "_blank")}
-          >
-            Bande Annonce
-          </Button>
+          <Link to={`/MovieDetails/${el.id}`}>
+            <Button variant="primary" style={{ width: "100%" }}>
+              Bande Annonce
+            </Button>
+          </Link>
           <i
             className="fas fa-minus-circle"
             onClick={() => {
