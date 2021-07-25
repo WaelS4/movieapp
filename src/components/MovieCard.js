@@ -11,7 +11,7 @@ export const MovieCard = ({ el, handleTrash }) => {
           <Card.Title>{el.title}</Card.Title>
           <Card.Text>
             {" "}
-            <FiveStart rate={el.Rate} />
+            <FiveStart rate={el.rate} />
           </Card.Text>
 
           <Button

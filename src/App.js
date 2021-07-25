@@ -6,7 +6,7 @@ function App() {
     {
       id: 0,
       title: "The Italian Job",
-      Rate: 4,
+      rate: 4,
       srcImg:
         "https://fr.web.img3.acsta.net/c_310_420/medias/nmedia/18/35/10/32/affiche2.jpg",
       srcVideo: "https://youtu.be/4up3hwHs_r4",
@@ -14,7 +14,7 @@ function App() {
     {
       id: 1,
       title: "Avengers",
-      Rate: 5,
+      rate: 5,
       srcImg:
         "https://fr.web.img2.acsta.net/pictures/19/04/04/09/04/0472053.jpg",
       srcVideo:
@@ -23,7 +23,7 @@ function App() {
     {
       id: 2,
       title: "La Momie",
-      Rate: 3,
+      rate: 3,
       srcImg:
         "https://fr.web.img4.acsta.net/pictures/14/08/25/15/31/080592.jpg",
       srcVideo:
@@ -32,7 +32,7 @@ function App() {
     {
       id: 3,
       title: "Jurassic World",
-      Rate: 2,
+      rate: 2,
       srcImg:
         "https://i0.wp.com/www.filmspourenfants.net/wp-content/uploads/2018/04/jurassic-world-a.jpg?fit=555%2C766&ssl=1",
       srcVideo: "https://www.youtube.com/watch?v=RFinNxS5KN4",
@@ -40,7 +40,7 @@ function App() {
     {
       id: 4,
       title: "Avatar",
-      Rate: 4,
+      rate: 4,
       srcImg:
         "https://images-na.ssl-images-amazon.com/images/I/61r9P1fJW2L._AC_SY679_.jpg",
       srcVideo: "https://www.youtube.com/watch?v=O1CzgULNRGs",
@@ -48,7 +48,7 @@ function App() {
     {
       id: 5,
       title: "SHERLOCK HOLMES",
-      Rate: 4,
+      rate: 4,
       srcImg:
         "https://fr.web.img6.acsta.net/c_310_420/medias/nmedia/18/67/70/22/19227477.jpg",
       srcVideo: "https://www.youtube.com/watch?v=xm2B8zce_pg",
@@ -56,7 +56,7 @@ function App() {
     {
       id: 6,
       title: "Fast and Furious",
-      Rate: 1,
+      rate: 1,
       srcImg:
         "https://img-4.linternaute.com/k_J3wVhnw0zSNlGzD87FUUg9Fdc=/405x540/a5fb6b0bd25b4c3c86c756299ea4b273/ccmcms-linternaute/192114.jpeg",
       srcVideo: "https://www.youtube.com/watch?v=hCPXYelJteM",
@@ -69,21 +69,20 @@ function App() {
       {
         id: Math.random(),
         title: newMovie.title.value,
-        Rate: Number(newMovie.rate.value),
+        rate: Number(newMovie.rate.value),
         srcImg: newMovie.poster.value,
         srcVideo: newMovie.video.value,
       },
     ]);
   };
-  const searchinit = () => {
-    setMovielist(Films.map((el) => el));
+
+  const [title, setTitle] = useState("");
+  const [rate, setrate] = useState(0);
+  const handleChange = (e) => {
+    setTitle(e.target.value);
   };
-  const handlerate = (rate) => {
-    setMovielist(movieList.filter((el) => el.Rate === rate));
-    console.log(movieList);
-  };
-  const handleinput = (text) => {
-    setMovielist(movieList.filter((el) => el.title.includes(text)));
+  const ratingChanged = (newRating) => {
+    setrate(newRating);
   };
   const handleTrash = (id) => {
     setMovielist(movieList.filter((el) => el.id !== id));
@@ -91,14 +90,21 @@ function App() {
   return (
     <>
       <NavBar
-        style={{ width: "100%" }}
-        handlerate={handlerate}
-        handleinput={handleinput}
+        title={title}
+        handleChange={handleChange}
+        rate={rate}
+        ratingChanged={ratingChanged}
         handleAdd={handleAdd}
-        searchinit={searchinit}
       />
       <div className="App">
-        <MovieList movieList={movieList} handleTrash={handleTrash} />
+        <MovieList
+          handleTrash={handleTrash}
+          movieList={movieList.filter(
+            (movie) =>
+              movie.title.toUpperCase().includes(title.toUpperCase()) &&
+              movie.rate >= rate
+          )}
+        />
       </div>
     </>
   );

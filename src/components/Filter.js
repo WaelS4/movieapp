@@ -1,11 +1,11 @@
 import React from "react";
 
-export const Filter = ({ handlerate }) => {
+export const Filter = ({ ratingChanged }) => {
   let star = (x) => {
     let rang = document.getElementsByClassName("filter");
     for (var val of rang) val.style.color = "black";
     for (var i = 0; i < x; i++) rang[i].style.color = "orange";
-    handlerate(x);
+    ratingChanged(x);
   };
   return (
     <div>
